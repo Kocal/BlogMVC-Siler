@@ -1,0 +1,22 @@
+{
+    "name": "siler/project",
+    "description": "Project's description",
+    "type": "project",
+    "require": {
+        "leocavalcante/siler": "dev-master",
+        "webonyx/graphql-php": "^0.9.13"
+    },
+    "require-dev": {
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "dev",
+            "email": "dev@email.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "scripts": {
+        "serve": "php -S 0.0.0.0:8000 -t ."
+    }
+}
