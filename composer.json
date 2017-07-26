@@ -5,6 +5,8 @@
     "require": {
         "leocavalcante/siler": "dev-master",
         "webonyx/graphql-php": "^0.9.13"
+        "robmorgan/phinx": "^0.8.1",
+        "fzaninotto/faker": "^1.6"
     },
     "require-dev": {
     },
@@ -17,6 +19,8 @@
     ],
     "minimum-stability": "stable",
     "scripts": {
-        "serve": "php -S 0.0.0.0:8000 -t ."
+        "serve": "php -S 0.0.0.0:8000 -t .",
+        "migrate": "phinx migrate",
+        "seed": "phinx seed:run -s UserSeeder -s CategorySeeder -s PostSeeder"
     }
 }
