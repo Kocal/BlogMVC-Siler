@@ -1,11 +1,12 @@
 <?php
 use Kilte\Pagination\Pagination;
+use Siler\Container;
 use Siler\Http\Response;
 use Siler\Twig;
 use function Siler\Http\redirect;
 
-global $db;
-global $request;
+$db = Container\get('db');
+$request = Container\get('request');
 
 // Prepare pagination
 $postsPerPage = 5;
@@ -28,4 +29,7 @@ foreach ($posts as $post) {
 // Creating pagination
 $pagination = new Pagination($db->post()->count('id'), $page, $postsPerPage);
 
-Response\html(Twig\render('home.twig', compact('posts', 'pagination')));
+// Return response
+Response\html(
+    Twig\render('home.twig', compact('posts', 'pagination'))
+);

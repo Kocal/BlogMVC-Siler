@@ -1,5 +1,6 @@
 <?php
 use Kilte\Pagination\Pagination;
+use Siler\Container;
 use Siler\Twig;
 
 $twig = Twig\init(
@@ -44,5 +45,7 @@ $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pag
     echo implode('', $output);
 }));
 
-$twig->addGlobal('categories', []);
-$twig->addGlobal('last_posts', []);
+$db = Container\get('db');
+
+$twig->addGlobal('categories', $db->category()->orderBy('id'));
+$twig->addGlobal('last_posts', $db->post()->orderBy('created', 'desc')->limit(2));
