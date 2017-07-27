@@ -6,7 +6,6 @@
         "leocavalcante/siler": "dev-master",
         "robmorgan/phinx": "^0.8.1",
         "fzaninotto/faker": "^1.6",
-        "illuminate/http": "^5.4",
         "twig/twig": "v1.34.4",
         "morris/lessql": "^0.3.4",
         "illuminate/support": "^5.4",

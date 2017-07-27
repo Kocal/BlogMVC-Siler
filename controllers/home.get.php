@@ -1,19 +1,20 @@
 <?php
 use Kilte\Pagination\Pagination;
 use Siler\Container;
+use Siler\Http\Request;
 use Siler\Http\Response;
 use Siler\Twig;
 use function Siler\Http\redirect;
 
 $db = Container\get('db');
-$request = Container\get('request');
 
 // Prepare pagination
 $postsPerPage = 5;
-$page = $request->get('page', 1);
+$page = (int)Request\get('page', 1);
 
 if ($page < 1) {
     redirect('/');
+    return;
 }
 
 // Fetching posts
