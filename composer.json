@@ -4,19 +4,27 @@
     "type": "project",
     "require": {
         "leocavalcante/siler": "dev-master",
-        "webonyx/graphql-php": "^0.9.13"
+        "robmorgan/phinx": "^0.8.1",
+        "fzaninotto/faker": "^1.6",
+        "illuminate/http": "^5.4",
+        "twig/twig": "v1.34.4",
+        "morris/lessql": "^0.3.4",
+        "illuminate/support": "^5.4",
+        "amstaffix/pagination": "^1.1"
     },
     "require-dev": {
     },
     "license": "proprietary",
     "authors": [
         {
-            "name": "dev",
-            "email": "dev@email.com"
+            "name": "Hugo Alliaume",
+            "email": "kocal@live.fr"
         }
     ],
     "minimum-stability": "stable",
     "scripts": {
-        "serve": "php -S 0.0.0.0:8000 -t ."
+        "serve": "php -S 0.0.0.0:8000 -t public -d display_errors=1",
+        "migrate": "phinx migrate",
+        "seed": "phinx seed:run -s UserSeeder -s CategorySeeder -s PostSeeder"
     }
 }
