@@ -3,10 +3,13 @@
     "description": "Project's description",
     "type": "project",
     "require": {
-        "gabordemooij/redbean": "dev-master",
         "leocavalcante/siler": "dev-master",
         "robmorgan/phinx": "^0.8.1",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "illuminate/http": "^5.4",
+        "twig/twig": "v1.34.4",
+        "morris/lessql": "^0.3.4",
+        "illuminate/support": "^5.4"
     },
     "require-dev": {
     },
@@ -19,7 +22,7 @@
     ],
     "minimum-stability": "stable",
     "scripts": {
-        "serve": "php -S 0.0.0.0:8000 -t .",
+        "serve": "php -S 0.0.0.0:8000 -t public -d display_errors=1",
         "migrate": "phinx migrate",
         "seed": "phinx seed:run -s UserSeeder -s CategorySeeder -s PostSeeder"
     }
