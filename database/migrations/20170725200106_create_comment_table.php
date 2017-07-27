@@ -27,7 +27,7 @@ class CreateCommentTable extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('comments');
+        $table = $this->table('comment');
         $table->addColumn('post_id', 'integer');
         $table->addColumn('username', 'string');
         $table->addColumn('email', 'string');

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Phinx\Seed\AbstractSeed;
 
 class PostSeeder extends AbstractSeed
@@ -16,17 +17,19 @@ class PostSeeder extends AbstractSeed
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        $user = $this->fetchRow('SELECT id FROM users');
-        $categories = $this->fetchAll('SELECT id FROM categories');
+        $user = $this->fetchRow('SELECT id FROM user');
+        $categories = $this->fetchAll('SELECT id FROM category');
 
         foreach ($categories as $category) {
             for($i = 0; $i < 5; $i++) {
-                $this->insert('posts', [
+                $name = $faker->sentence(random_int(5, 10));
+
+                $this->insert('post', [
                     'user_id' => $user['id'],
                     'category_id' => $category['id'],
-                    'name' => $faker->name,
-                    'slug' => $faker->slug,
-                    'content' => $faker->text,
+                    'name' => $name,
+                    'slug' => Str::slug($name),
+                    'content' => $faker->realText(1000),
                     'created' => $faker->dateTime->format('Y-m-d H:i:s'),
                 ]);
             }

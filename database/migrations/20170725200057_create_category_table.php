@@ -27,7 +27,7 @@ class CreateCategoryTable extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('categories');
+        $table = $this->table('category');
         $table->addColumn('name', 'string');
         $table->addColumn('slug', 'string');
         $table->addColumn('post_count', 'integer');
