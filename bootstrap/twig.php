@@ -11,6 +11,9 @@ $twig = Twig\init(
 
 $twig->addExtension(new Twig_Extension_Debug());
 
+$twig->addFilter(new Twig_SimpleFilter('to_markdown', 'Michelf\MarkdownExtra::defaultTransform'));
+
+$twig->addFunction(new Twig_SimpleFunction('md5', 'md5'));
 $twig->addFunction(new Twig_SimpleFunction('str_words', '\Illuminate\Support\Str::words'));
 
 $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pagination, $url = '/') {

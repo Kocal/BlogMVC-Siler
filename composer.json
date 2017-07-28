@@ -9,7 +9,8 @@
         "twig/twig": "v1.34.4",
         "morris/lessql": "^0.3.4",
         "illuminate/support": "^5.4",
-        "amstaffix/pagination": "^1.1"
+        "amstaffix/pagination": "^1.1",
+        "michelf/php-markdown": "^1.7"
     },
     "require-dev": {
     },

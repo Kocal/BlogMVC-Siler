@@ -3,6 +3,12 @@
 {% block title 'Homepage' %}
 
 {% block content %}
+
+    <div class="page-header">
+        <h1>Blog - {{ block('title') }}</h1>
+        <p class="lead">Welcome on my blog</p>
+    </div>
+
     {% for post in posts %}
         <article>
             <h2><a href="/{{ post.slug }}">{{ post.name }}</a></h2>
