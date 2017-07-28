@@ -50,5 +50,6 @@ $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pag
 
 $db = Container\get('db');
 
+$twig->addGlobal('error', \Siler\Http\flash('error'));
 $twig->addGlobal('categories', $db->category()->orderBy('id'));
 $twig->addGlobal('last_posts', $db->post()->orderBy('created', 'desc')->limit(2));

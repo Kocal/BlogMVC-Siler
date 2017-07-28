@@ -9,7 +9,7 @@
     <title>{% block title %}{% endblock %} | Blog | MyDomain.com</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
     <style>
         body {
             padding-top: 50px;
@@ -43,11 +43,13 @@
         </div><!-- /.container -->
     </div>
 
-
     <div class="container">
 
         <div class="row">
             <div class="col-md-8">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
 
