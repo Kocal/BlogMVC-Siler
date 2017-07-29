@@ -3,17 +3,20 @@ use Siler\Container;
 use Siler\Http\Response;
 use Siler\Twig;
 use function Siler\Http\redirect;
+use function Siler\Http\setsession;
 
 $db = Container\get('db');
 $slug = array_get($params, 'slug');
 
-if ($slug === null) {
-    redirect('/');
-    return;
-}
-
 // Fetching post
 $post = \Models\Post::where('slug', $slug)->with('comments')->first();
+
+if ($post === null) {
+    setsession('error', 'This post does not exists.');
+    redirect('/');
+
+    return;
+}
 
 // Return response
 Response\html(Twig\render('post.twig', compact('post')));

@@ -5,25 +5,25 @@ use Siler\Twig;
 use function Siler\Http\redirect;
 use function Siler\Http\setsession;
 
-$id = (int)array_get($params, 'id');
+$slug = array_get($params, 'slug');
 
-// Fetching user
-$user = \Models\User::where('id', $id)->first();
+// Fetching category
+$category = \Models\Category::where('slug', $slug)->first();
 
-if ($user === null) {
-    setsession('error', 'This author does not exists.');
+if ($category === null) {
+    setsession('error', 'This category does not exists.');
     redirect('/');
 
     return;
 }
 
 // Fetching its posts
-$posts = \Models\Post::where('user_id', $user->id)->orderBy('created', 'DESC')->paginate(5);
+$posts = $category->posts()->paginate(5);
 
 // Creating pagination
 $pagination = new Pagination($posts->total(), $posts->currentPage(), $posts->perPage());
 
 // Return response
 Response\html(
-    Twig\render('author.twig', compact('user', 'posts', 'pagination'))
+    Twig\render('category.twig', compact('category', 'posts', 'pagination'))
 );

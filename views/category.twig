@@ -1,12 +1,12 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Author ' ~ user.username %}
+{% block title 'Category ' ~ category.name %}
 
 {% block content %}
 
     <div class="page-header">
         <h1>Blog - {{ block('title') }}</h1>
-        <p class="lead">All posts by {{ user.username }}</p>
+        <p class="lead">All posts in the category {{ category.name }}</p>
     </div>
 
     {% for post in posts %}
@@ -14,6 +14,6 @@
         <hr>
     {% endfor %}
 
-    {{ paginate(pagination, '/author/' ~ user.id) }}
+    {{ paginate(pagination, '/category/' ~ category.slug) }}
 
 {% endblock %}
