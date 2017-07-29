@@ -1,6 +1,15 @@
 <?php
-use function Siler\Container\get;
-use function Siler\Container\set;
+use Siler\Container;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-set('pdo', new PDO('sqlite:' . __DIR__ . '/../database/database.sqlite'));
-set('db', new LessQL\Database(get('pdo')));
+$capsule = new Capsule();
+$capsule->addConnection([
+    'driver' => 'sqlite',
+    'database' => __DIR__ . '/../database/database.sqlite',
+    'charset' => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+]);
+
+$capsule->setEventDispatcher(Container\get('dispatcher'));
+$capsule->setAsGlobal();
+$capsule->bootEloquent();

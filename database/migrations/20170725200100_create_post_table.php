@@ -27,7 +27,7 @@ class CreatePostTable extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('post');
+        $table = $this->table('posts');
         $table->addColumn('user_id', 'integer');
         $table->addColumn('category_id', 'integer');
         $table->addColumn('name', 'string');

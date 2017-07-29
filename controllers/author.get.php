@@ -12,16 +12,15 @@ $id = (int)array_get($params, 'id');
 
 // Prepare pagination
 $postsPerPage = 5;
-$page = (int)Request\get('page', 1);
 
-if ($id < 1 || $page < 1) {
+if ($id < 1) {
     redirect('/');
 
     return;
 }
 
-// Fetch author posts
-$user = $db->user()->where('id', $id)->fetch();
+// Fetching user
+$user = \Models\User::where('id', $id)->first();
 
 if ($user === null) {
     setsession('error', 'This author does not exists');
@@ -30,16 +29,11 @@ if ($user === null) {
     return;
 }
 
-$posts = $db->post()
-            ->where('user_id', $user->id)
-            ->orderBy('created', 'DESC')
-            ->paged($postsPerPage, $page);
+// Fetching its posts
+$posts = \Models\Post::where('user_id', $user->id)->orderBy('created', 'DESC')->paginate($postsPerPage);
 
-foreach ($posts as $post) {
-    $post->category = $post->category()->fetch();
-}
 // Creating pagination
-$pagination = new Pagination($db->post()->count('id'), $page, $postsPerPage);
+$pagination = new Pagination($posts->total(), $posts->currentPage(), $postsPerPage);
 
 // Return response
 Response\html(

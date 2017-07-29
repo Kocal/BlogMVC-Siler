@@ -27,7 +27,7 @@ class CreateUserTable extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('user');
+        $table = $this->table('users');
         $table->addColumn('username', 'string');
         $table->addColumn('password', 'string');
         $table->addIndex(['username'], ['unique' => true]);

@@ -13,10 +13,7 @@ if ($slug === null) {
 }
 
 // Fetching post
-$post = $db->post()->where('slug', $slug)->fetch();
-$post->user = $post->user()->fetch();
-$post->category = $post->category()->fetch();
-$post->comments = $post->commentList();
+$post = \Models\Post::where('slug', $slug)->with('comments')->first();
 
 // Return response
 Response\html(Twig\render('post.twig', compact('post')));

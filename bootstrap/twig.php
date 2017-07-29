@@ -1,6 +1,6 @@
 <?php
 use Kilte\Pagination\Pagination;
-use Siler\Container;
+use RedBeanPHP\R;
 use Siler\Twig;
 
 $twig = Twig\init(
@@ -12,10 +12,8 @@ $twig = Twig\init(
 $twig->addExtension(new Twig_Extension_Debug());
 
 $twig->addFilter(new Twig_SimpleFilter('to_markdown', 'Michelf\MarkdownExtra::defaultTransform'));
-
 $twig->addFunction(new Twig_SimpleFunction('md5', 'md5'));
 $twig->addFunction(new Twig_SimpleFunction('str_words', '\Illuminate\Support\Str::words'));
-
 $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pagination, $url = '/') {
     $output = ['<ul class="pagination">'];
 
@@ -48,8 +46,7 @@ $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pag
     echo implode('', $output);
 }));
 
-$db = Container\get('db');
 
 $twig->addGlobal('error', \Siler\Http\flash('error'));
-$twig->addGlobal('categories', $db->category()->orderBy('id'));
-$twig->addGlobal('last_posts', $db->post()->orderBy('created', 'desc')->limit(2));
+$twig->addGlobal('categories', \Models\Category::all());
+$twig->addGlobal('last_posts', \Models\Post::orderBy('created', 'desc')->limit(2)->get());
