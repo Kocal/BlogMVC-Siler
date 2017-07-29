@@ -50,6 +50,9 @@
                 {% if error %}
                     <div class="alert alert-danger">{{ error }}</div>
                 {% endif %}
+                {% if successAlert %}
+                    <div class="alert alert-success">{{ successAlert }}</div>
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
 
