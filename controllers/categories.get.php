@@ -11,7 +11,7 @@ $slug = array_get($params, 'slug');
 $category = \Models\Category::where('slug', $slug)->first();
 
 if ($category === null) {
-    setsession('error', 'This category does not exists.');
+    setsession('errorAlert', 'This category does not exists.');
     redirect('/');
 
     return;
@@ -27,3 +27,5 @@ $pagination = new Pagination($posts->total(), $posts->currentPage(), $posts->per
 Response\html(
     Twig\render('category.twig', compact('category', 'posts', 'pagination'))
 );
+
+die();

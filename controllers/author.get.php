@@ -11,7 +11,7 @@ $id = (int)array_get($params, 'id');
 $user = \Models\User::where('id', $id)->first();
 
 if ($user === null) {
-    setsession('error', 'This author does not exists.');
+    setsession('errorAlert', 'This author does not exists.');
     redirect('/');
 
     return;
@@ -27,3 +27,5 @@ $pagination = new Pagination($posts->total(), $posts->currentPage(), $posts->per
 Response\html(
     Twig\render('author.twig', compact('user', 'posts', 'pagination'))
 );
+
+die();

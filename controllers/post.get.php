@@ -12,11 +12,13 @@ $slug = array_get($params, 'slug');
 $post = \Models\Post::where('slug', $slug)->with('comments')->first();
 
 if ($post === null) {
-    setsession('error', 'This post does not exists.');
+    setsession('errorAlert', 'This post does not exists.');
     redirect('/');
 
-    return;
+    die();
 }
 
 // Return response
 Response\html(Twig\render('post.twig', compact('post')));
+
+die();

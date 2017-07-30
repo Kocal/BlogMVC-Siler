@@ -31,3 +31,5 @@ if ($validator->fails()) {
 }
 
 redirect($referer);
+
+die();

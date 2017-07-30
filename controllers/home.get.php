@@ -12,3 +12,5 @@ $pagination = new Pagination($posts->total(), $posts->currentPage(), $perPage);
 Response\html(
     Twig\render('home.twig', compact('posts', 'pagination'))
 );
+
+die();
