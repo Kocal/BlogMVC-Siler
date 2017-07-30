@@ -31,7 +31,7 @@ $validator->validate($_POST);
 if ($validator->fails()) {
     setsession('requestData', $_POST);
     setsession('validationErrors', $validator->errors());
-    redirect(header('HTTP_REFERER', '/admin'));
+    redirect(header('Referer', '/admin'));
 } else {
     $post->fill([
         'name' => $_POST['data']['Post']['name'],

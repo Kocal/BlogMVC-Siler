@@ -6,7 +6,7 @@ use function Siler\Http\redirect;
 use function Siler\Http\Request\header;
 use function Siler\Http\setsession;
 
-$referer = header('HTTP_REFERER', '/');
+$referer = header('Referer', '/');
 
 $validator = new Validator([
     '_csrf' => 'required|in:' . Container\get('csrf-token'),
