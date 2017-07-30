@@ -1,7 +1,10 @@
 <?php
+
 use Kilte\Pagination\Pagination;
 use Siler\Container;
 use Siler\Twig;
+use function Siler\Http\flash;
+use function Siler\Http\session;
 
 $twig = Twig\init(
     __DIR__ . '/../views',
@@ -11,8 +14,18 @@ $twig = Twig\init(
 
 $twig->addExtension(new Twig_Extension_Debug());
 
+$twig->addFilter(new Twig_SimpleFilter('to_markdown', 'Michelf\MarkdownExtra::defaultTransform'));
+$twig->addFunction(new Twig_SimpleFunction('md5', 'md5'));
 $twig->addFunction(new Twig_SimpleFunction('str_words', '\Illuminate\Support\Str::words'));
-
+$twig->addFunction(new Twig_SimpleFunction('csrf_token', function () {
+    return Container\get('csrf-token');
+}));
+$twig->addFunction(new Twig_SimpleFunction('csrf_field', function () {
+    echo '<input type="hidden" name="_csrf" value="' . Container\get('csrf-token') . '">';
+}));
+$twig->addFunction(new Twig_SimpleFunction('old', function ($key) {
+    return array_get(session('requestData'), $key);
+}));
 $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pagination, $url = '/') {
     $output = ['<ul class="pagination">'];
 
@@ -45,7 +58,10 @@ $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pag
     echo implode('', $output);
 }));
 
-$db = Container\get('db');
 
-$twig->addGlobal('categories', $db->category()->orderBy('id'));
-$twig->addGlobal('last_posts', $db->post()->orderBy('created', 'desc')->limit(2));
+$twig->addGlobal('user', session('user'));
+$twig->addGlobal('errorAlert', flash('errorAlert'));
+$twig->addGlobal('successAlert', flash('successAlert'));
+$twig->addGlobal('validationErrors', flash('validationErrors'));
+$twig->addGlobal('categories', \Models\Category::all());
+$twig->addGlobal('last_posts', \Models\Post::orderBy('created', 'desc')->limit(2)->get());

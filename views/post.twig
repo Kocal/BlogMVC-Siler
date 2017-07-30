@@ -1,0 +1,71 @@
+{% extends 'layout.twig' %}
+
+{% block title -%}
+    {{ post.name }}
+{%- endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ post.name }}</h1>
+        <p>
+            <small>
+                Category : <a href="/category/{{ post.category.slug }}">{{ post.category.name }}</a>,
+                by <a href="/authors/{{ post.user.id }}">{{ post.user.username }}</a> on <em>{{ post.created }}</em>
+            </small>
+        </p>
+    </div>
+
+    <article>
+        {% autoescape false %}
+            {{ post.content | to_markdown }}
+        {% endautoescape %}
+    </article>
+
+    <section class="comments">
+        <h3>Comment this post</h3>
+
+        {% if validationErrors %}
+            <div class="alert alert-danger">
+                <strong>Oh snap !</strong> you did some errors
+            </div>
+        {% endif %}
+
+        <form role="form" action="/comments" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group {{ validationErrors.has('email') ? 'has-error' : '' }}">
+                        <input type="email" name="email" required="required" value="{{ old('email') }}" class="form-control" placeholder="Your email">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group {{ validationErrors.has('username') ? 'has-error': '' }}">
+                        <input type="text" name="username" required="required" value="{{ old('username') }}" class="form-control" placeholder="Your username">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group {{ validationErrors.has('content') ? 'has-error' : '' }}">
+                <textarea name="content" required="required" class="form-control" rows="3" placeholder="Your comment">{{ old('content') }}</textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+        <h3>{{ post.comments | length }} Comment(s)</h3>
+
+        {% for comment in post.comments %}
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="https://www.gravatar.com/avatar/{{ md5(comment.email) }}" width="100%">
+                </div>
+                <div class="col-md-10">
+                    <p><strong>{{ comment.username }}</strong>, on {{ comment.created }}</p>
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}

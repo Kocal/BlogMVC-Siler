@@ -3,8 +3,18 @@ use Siler\Route;
 
 require_once __DIR__ . '/../bootstrap/bootstrap.php';
 
-Route\get('/', '../controllers/home.get.php');
+
+Route\get('/admin', '../controllers/admin/home.get.php');
+
+Route\get('/login', '../controllers/login.get.php');
+Route\post('/login', '../controllers/login.post.php');
+Route\get('/logout', '../controllers/logout.get.php');
+
 Route\get('/category/{slug}', '../controllers/categories.get.php');
-Route\get('/author/{slug}', '../controllers/authors.get.php');
+Route\get('/author/{id}', '../controllers/author.get.php');
+Route\post('/comments', '../controllers/comments.post.php');
 Route\get('/{slug}', '../controllers/post.get.php');
-Route\get('/admin', '');
+Route\get('/', '../controllers/home.get.php');
+
+
+

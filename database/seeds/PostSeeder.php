@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Str;
+use Models\Category;
+use Models\Post;
+use Models\User;
 use Phinx\Seed\AbstractSeed;
 
 class PostSeeder extends AbstractSeed
@@ -17,21 +20,20 @@ class PostSeeder extends AbstractSeed
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        $user = $this->fetchRow('SELECT id FROM user');
-        $categories = $this->fetchAll('SELECT id FROM category');
+        foreach (User::all() as $user) {
+            foreach (Category::all() as $category) {
+                for ($i = 0; $i < 5; $i++) {
+                    $name = $faker->sentence(random_int(5, 10));
 
-        foreach ($categories as $category) {
-            for($i = 0; $i < 5; $i++) {
-                $name = $faker->sentence(random_int(5, 10));
-
-                $this->insert('post', [
-                    'user_id' => $user['id'],
-                    'category_id' => $category['id'],
-                    'name' => $name,
-                    'slug' => Str::slug($name),
-                    'content' => $faker->realText(1000),
-                    'created' => $faker->dateTime->format('Y-m-d H:i:s'),
-                ]);
+                    Post::create([
+                        'user_id' => $user->id,
+                        'category_id' => $category->id,
+                        'name' => $name,
+                        'slug' => Str::slug($name),
+                        'content' => $faker->realText(1000),
+                        'created' => $faker->dateTime->format('Y-m-d H:i:s'),
+                    ]);
+                }
             }
         }
     }

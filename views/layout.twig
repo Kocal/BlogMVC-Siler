@@ -9,7 +9,7 @@
     <title>{% block title %}{% endblock %} | Blog | MyDomain.com</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
     <style>
         body {
             padding-top: 50px;
@@ -36,49 +36,55 @@
 
             <div class="collapse navbar-collapse navbar-ex1-collapse navbar-right">
                 <ul class="nav navbar-nav">
-                    <li><a href="login.html">Admin</a></li>
+                    {% if user %}
+                        <li><a href="/admin">Admin (logged as {{ user.username }})</a></li>
+                        <li><a href="/logout?_csrf={{ csrf_token() }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="/admin">Admin</a></li>
+                    {% endif %}
                 </ul>
             </div>
 
         </div><!-- /.container -->
     </div>
 
-
     <div class="container">
+        {% if errorAlert %}
+            <div class="alert alert-danger">{{ errorAlert }}</div>
+        {% endif %}
+        {% if successAlert %}
+            <div class="alert alert-success">{{ successAlert }}</div>
+        {% endif %}
 
-        <div class="row">
-            <div class="col-md-8">
-
-                <div class="page-header">
-                    <h1>Blog - {{ block('title') }}</h1>
-                    <p class="lead">Welcome on my blog</p>
+        {% block main %}
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}{% endblock %}
                 </div>
 
-                {% block content %}{% endblock %}
+                <div class="col-md-4 sidebar">
+
+                    <h4>Categories</h4>
+                    <div class="list-group">
+                        {% for category in categories %}
+                            <a href="/category/{{ category.slug }}" class="list-group-item">
+                                <span class="badge">{{ category.post_count }}</span>
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    <h4>Last posts</h4>
+                    <div class="list-group">
+                        {% for post in last_posts %}
+                            <a href="/{{ post.slug }}" class="list-group-item">
+                                {{ post.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div><!-- /.sidebar -->
             </div>
-
-            <div class="col-md-4 sidebar">
-
-                <h4>Categories</h4>
-                <div class="list-group">
-                    {% for category in categories %}
-                        <a href="/category/{{ category.slug }}" class="list-group-item">
-                            <span class="badge">{{ category.post_count }}</span>
-                            {{ category.name }}
-                        </a>
-                    {% endfor %}
-                </div>
-
-                <h4>Last posts</h4>
-                <div class="list-group">
-                    {% for post in last_posts %}
-                        <a href="/{{ post.slug }}" class="list-group-item">
-                            {{ post.name }}
-                        </a>
-                    {% endfor %}
-                </div>
-            </div><!-- /.sidebar -->
-        </div>
+        {% endblock %}
 
     </div><!-- /.container -->
 

@@ -1,5 +1,6 @@
 <?php
 
+use Models\User;
 use Phinx\Seed\AbstractSeed;
 
 class UserSeeder extends AbstractSeed
@@ -14,7 +15,7 @@ class UserSeeder extends AbstractSeed
      */
     public function run()
     {
-        $this->insert('user', [
+        User::create([
             'username' => 'admin',
             'password' => password_hash('admin', PASSWORD_BCRYPT),
         ]);

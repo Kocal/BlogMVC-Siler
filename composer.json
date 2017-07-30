@@ -2,15 +2,23 @@
     "name": "siler/project",
     "description": "Project's description",
     "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Models\\": "models"
+        }
+    },
     "require": {
         "leocavalcante/siler": "dev-master",
         "robmorgan/phinx": "^0.8.1",
         "fzaninotto/faker": "^1.6",
-        "illuminate/http": "^5.4",
         "twig/twig": "v1.34.4",
-        "morris/lessql": "^0.3.4",
         "illuminate/support": "^5.4",
-        "amstaffix/pagination": "^1.1"
+        "amstaffix/pagination": "^1.1",
+        "michelf/php-markdown": "^1.7",
+        "illuminate/database": "^5.4",
+        "illuminate/events": "^5.4",
+        "illuminate/pagination": "^5.4",
+        "kocal/validator": "^0.1.0"
     },
     "require-dev": {
     },

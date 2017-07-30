@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+use Models\Category;
 use Phinx\Seed\AbstractSeed;
 
 class CategorySeeder extends AbstractSeed
@@ -20,7 +21,7 @@ class CategorySeeder extends AbstractSeed
         for ($i = 0; $i < 3; $i++) {
             $name = $faker->sentence(2);
 
-            $this->insert('category', [
+            Category::create([
                 'name' => $name,
                 'slug' => Str::slug($name),
                 'post_count' => 5,

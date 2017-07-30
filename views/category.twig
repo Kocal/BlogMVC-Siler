@@ -1,12 +1,12 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Homepage' %}
+{% block title 'Category ' ~ category.name %}
 
 {% block content %}
 
     <div class="page-header">
         <h1>Blog - {{ block('title') }}</h1>
-        <p class="lead">Welcome on my blog</p>
+        <p class="lead">All posts in the category {{ category.name }}</p>
     </div>
 
     {% for post in posts %}
@@ -14,5 +14,6 @@
         <hr>
     {% endfor %}
 
-    {{ paginate(pagination) }}
+    {{ paginate(pagination, '/category/' ~ category.slug) }}
+
 {% endblock %}
