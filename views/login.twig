@@ -1,0 +1,25 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Login' %}
+
+{% block main %}
+    <form class="form-signin" action="/login" method="post">
+        <h4 class="form-signin-heading">Please sign in</h4>
+        {{ csrf_field() }}
+        <div class="form-group {{ validationErrors.has('username') ? 'has-error': '' }}">
+            <input type="text" name="username" class="form-control" placeholder="Email address" autofocus>
+            {% if validationErrors.has('username') %}
+                <div class="help-block">{{ validationErrors.first('username') }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group {{ validationErrors.has('password') ? 'has-error': '' }}">
+            <input type="password" name="password" class="form-control" placeholder="Password">
+            {% if validationErrors.has('password') %}
+                <div class="help-block">{{ validationErrors.first('password') }}</div>
+            {% endif %}
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+{% endblock %}

@@ -36,7 +36,11 @@
 
             <div class="collapse navbar-collapse navbar-ex1-collapse navbar-right">
                 <ul class="nav navbar-nav">
-                    <li><a href="login.html">Admin</a></li>
+                    {% if user %}
+                        <li><a href="/admin">Admin (logged as {{ user.username }})</a></li>
+                    {% else %}
+                        <li><a href="/admin">Admin</a></li>
+                    {% endif %}
                 </ul>
             </div>
 
@@ -44,40 +48,42 @@
     </div>
 
     <div class="container">
+        {% if errorAlert %}
+            <div class="alert alert-danger">{{ errorAlert }}</div>
+        {% endif %}
+        {% if successAlert %}
+            <div class="alert alert-success">{{ successAlert }}</div>
+        {% endif %}
 
-        <div class="row">
-            <div class="col-md-8">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                {% endif %}
-                {% if successAlert %}
-                    <div class="alert alert-success">{{ successAlert }}</div>
-                {% endif %}
-                {% block content %}{% endblock %}
+        {% block main %}
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}{% endblock %}
+                </div>
+
+                <div class="col-md-4 sidebar">
+
+                    <h4>Categories</h4>
+                    <div class="list-group">
+                        {% for category in categories %}
+                            <a href="/category/{{ category.slug }}" class="list-group-item">
+                                <span class="badge">{{ category.post_count }}</span>
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    <h4>Last posts</h4>
+                    <div class="list-group">
+                        {% for post in last_posts %}
+                            <a href="/{{ post.slug }}" class="list-group-item">
+                                {{ post.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div><!-- /.sidebar -->
             </div>
-
-            <div class="col-md-4 sidebar">
-
-                <h4>Categories</h4>
-                <div class="list-group">
-                    {% for category in categories %}
-                        <a href="/category/{{ category.slug }}" class="list-group-item">
-                            <span class="badge">{{ category.post_count }}</span>
-                            {{ category.name }}
-                        </a>
-                    {% endfor %}
-                </div>
-
-                <h4>Last posts</h4>
-                <div class="list-group">
-                    {% for post in last_posts %}
-                        <a href="/{{ post.slug }}" class="list-group-item">
-                            {{ post.name }}
-                        </a>
-                    {% endfor %}
-                </div>
-            </div><!-- /.sidebar -->
-        </div>
+        {% endblock %}
 
     </div><!-- /.container -->
 

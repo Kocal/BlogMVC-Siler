@@ -3,6 +3,7 @@ use Kilte\Pagination\Pagination;
 use Siler\Container;
 use Siler\Twig;
 use function Siler\Http\session;
+use function Siler\Http\flash;
 
 $twig = Twig\init(
     __DIR__ . '/../views',
@@ -54,8 +55,9 @@ $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pag
 }));
 
 
-$twig->addGlobal('error', \Siler\Http\flash('error'));
-$twig->addGlobal('successAlert', \Siler\Http\flash('successAlert'));
-$twig->addGlobal('validationErrors', \Siler\Http\flash('validationErrors'));
+$twig->addGlobal('user', session('user'));
+$twig->addGlobal('errorAlert', flash('errorAlert'));
+$twig->addGlobal('successAlert', flash('successAlert'));
+$twig->addGlobal('validationErrors', flash('validationErrors'));
 $twig->addGlobal('categories', \Models\Category::all());
 $twig->addGlobal('last_posts', \Models\Post::orderBy('created', 'desc')->limit(2)->get());
