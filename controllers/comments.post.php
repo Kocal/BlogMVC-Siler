@@ -1,10 +1,12 @@
 <?php
+
 use Kocal\Validator\Validator;
 use Siler\Container;
-use Siler\Http;
 use function Siler\Http\redirect;
+use function Siler\Http\Request\header;
+use function Siler\Http\setsession;
 
-$referer = array_get($_SERVER, 'HTTP_REFERER', '/');
+$referer = header('HTTP_REFERER', '/');
 
 $validator = new Validator([
     '_csrf' => 'required|in:' . Container\get('csrf-token'),
@@ -17,8 +19,8 @@ $validator = new Validator([
 $validator->validate($_POST);
 
 if ($validator->fails()) {
-    Http\setsession('requestData', $_POST);
-    Http\setsession('validationErrors', $validator->errors());
+    setsession('requestData', $_POST);
+    setsession('validationErrors', $validator->errors());
 } else {
     \Models\Comment::create([
         'post_id' => $_POST['post_id'],
@@ -26,8 +28,8 @@ if ($validator->fails()) {
         'username' => $_POST['username'],
         'content' => $_POST['content'],
     ]);
-    Http\setsession('requestData', null);
-    Http\setsession('successAlert', 'Your comment has been successfully posted.');
+    setsession('requestData', null);
+    setsession('successAlert', 'Your comment has been successfully posted.');
 }
 
 redirect($referer);

@@ -1,4 +1,5 @@
 <?php
+
 use Kilte\Pagination\Pagination;
 use Siler\Http\Response;
 use Siler\Twig;
