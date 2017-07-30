@@ -22,10 +22,10 @@
             <tr>
                 <td>{{ post.id }}</td>
                 <td>{{ post.name }}</td>
-                <td>{{ post.created }}</td>
                 <td>{{ post.category.name }}</td>
+                <td>{{ post.created }}</td>
                 <td>
-                    <a href="/admin/posts/edit/{{ post.id }}?_csrf={{ csrf_token() }}" class="btn btn-primary">Edit</a>
+                    <a href="/admin/posts/edit/{{ post.id }}" class="btn btn-primary">Edit</a>
                     <a href="/admin/posts/delete/{{ post.id }}?_csrf={{ csrf_token() }}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
                 </td>
             </tr>

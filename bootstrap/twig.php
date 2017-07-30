@@ -23,8 +23,8 @@ $twig->addFunction(new Twig_SimpleFunction('csrf_token', function () {
 $twig->addFunction(new Twig_SimpleFunction('csrf_field', function () {
     echo '<input type="hidden" name="_csrf" value="' . Container\get('csrf-token') . '">';
 }));
-$twig->addFunction(new Twig_SimpleFunction('old', function ($key) {
-    return array_get(session('requestData'), $key);
+$twig->addFunction(new Twig_SimpleFunction('old', function ($key, $default = null) {
+    return array_get(session('requestData'), $key, $default);
 }));
 $twig->addFunction(new Twig_SimpleFunction('paginate', function (Pagination $pagination, $url = '/') {
     $output = ['<ul class="pagination">'];
