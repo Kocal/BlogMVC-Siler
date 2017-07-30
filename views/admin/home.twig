@@ -1,0 +1,39 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Home - Admin' %}
+
+{% block main %}
+    <h1>Manage posts</h1>
+
+    <p><a href="admin_edit.html" class="btn btn-primary">Add a new post</a></p>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Publication date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.name }}</td>
+                <td>{{ post.created }}</td>
+                <td>{{ post.category.name }}</td>
+                <td>
+                    <a href="/admin/posts/edit/{{ post.id }}?_csrf={{ csrf_token() }}" class="btn btn-primary">Edit</a>
+                    <a href="/admin/posts/delete/{{ post.id }}?_csrf={{ csrf_token() }}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+    {{ paginate(pagination, '/admin') }}
+{% endblock %}
