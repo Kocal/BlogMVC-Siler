@@ -1,9 +1,10 @@
 <?php
+
 use Kilte\Pagination\Pagination;
 use Siler\Container;
 use Siler\Twig;
-use function Siler\Http\session;
 use function Siler\Http\flash;
+use function Siler\Http\session;
 
 $twig = Twig\init(
     __DIR__ . '/../views',
@@ -16,6 +17,9 @@ $twig->addExtension(new Twig_Extension_Debug());
 $twig->addFilter(new Twig_SimpleFilter('to_markdown', 'Michelf\MarkdownExtra::defaultTransform'));
 $twig->addFunction(new Twig_SimpleFunction('md5', 'md5'));
 $twig->addFunction(new Twig_SimpleFunction('str_words', '\Illuminate\Support\Str::words'));
+$twig->addFunction(new Twig_SimpleFunction('csrf_token', function () {
+    return Container\get('csrf-token');
+}));
 $twig->addFunction(new Twig_SimpleFunction('csrf_field', function () {
     echo '<input type="hidden" name="_csrf" value="' . Container\get('csrf-token') . '">';
 }));

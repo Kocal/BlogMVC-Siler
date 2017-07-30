@@ -2,8 +2,9 @@
 
 use Siler\Container;
 use Siler\Http;
+use function Siler\Http\Request\get;
 
-if (array_get($_POST, '_csrf') === Container\get('csrf-token')) {
+if (get('_csrf') === Container\get('csrf-token')) {
     Http\setsession('user', null);
     Http\setsession('successAlert', 'You have been disconnected.');
 }
