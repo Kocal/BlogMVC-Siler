@@ -8,19 +8,19 @@
         }
     },
     "require": {
-        "leocavalcante/siler": "dev-master",
-        "robmorgan/phinx": "^0.8.1",
-        "fzaninotto/faker": "^1.6",
-        "twig/twig": "v1.34.4",
-        "illuminate/support": "^5.4",
         "amstaffix/pagination": "^1.1",
-        "michelf/php-markdown": "^1.7",
         "illuminate/database": "^5.4",
         "illuminate/events": "^5.4",
         "illuminate/pagination": "^5.4",
-        "kocal/validator": "^0.1.0"
+        "illuminate/support": "^5.4",
+        "kocal/validator": "^0.1.0",
+        "leocavalcante/siler": "dev-master",
+        "michelf/php-markdown": "^1.7",
+        "twig/twig": "v1.34.4"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.6",
+        "robmorgan/phinx": "^0.8.1"
     },
     "license": "proprietary",
     "authors": [
@@ -31,7 +31,7 @@
     ],
     "minimum-stability": "stable",
     "scripts": {
-        "serve": "php -S 0.0.0.0:8000 -t public -d display_errors=1",
+        "serve": "COMPOSER_PROCESS_TIMEOUT=0 php -S 0.0.0.0:8000 -t public -d display_errors=1",
         "migrate": "phinx migrate",
         "seed": "phinx seed:run -s UserSeeder -s CategorySeeder -s PostSeeder"
     }
