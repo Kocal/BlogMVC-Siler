@@ -5,6 +5,11 @@ require_once __DIR__ . '/../bootstrap/bootstrap.php';
 
 
 Route\get('/admin', '../controllers/admin/home.get.php');
+Route\get('/admin/posts/create', '../controllers/admin/posts/create.get.php');
+Route\post('/admin/posts/create', '../controllers/admin/posts/create.post.php');
+Route\get('/admin/posts/edit/{id}', '../controllers/admin/posts/edit.get.php');
+Route\post('/admin/posts/edit/{id}', '../controllers/admin/posts/edit.post.php');
+Route\get('/admin/posts/delete/{id}', '../controllers/admin/posts/delete.get.php');
 
 Route\get('/login', '../controllers/login.get.php');
 Route\post('/login', '../controllers/login.post.php');

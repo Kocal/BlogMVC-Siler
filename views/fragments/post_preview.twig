@@ -6,6 +6,6 @@
             by <a href="/author/{{ post.user.id }}">{{ post.user.username }}</a> on <em>{{ post.created }}</em>
         </small>
     </p>
-    <p>{{ str_words(post.content, 100) }}</p>
+    <p>{{ str_words(post.content, 100) | to_markdown | raw }}</p>
     <p class="text-right"><a href="/{{ post.slug }}" class="btn btn-primary">Read more...</a></p>
 </article>

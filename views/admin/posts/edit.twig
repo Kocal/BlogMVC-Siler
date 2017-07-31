@@ -1,0 +1,76 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Edit post - Admin' %}
+
+{% block main %}
+    <h1>Edit post</h1>
+
+    <p><a href="/admin">< Back to posts</a></p>
+
+    <form action="/admin/posts/edit/{{ post.id }}" id="PostAdminEditForm" method="post" accept-charset="utf-8">
+        {{ csrf_field() }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group required {{ validationErrors.has('data.Post.name') ? 'has-error': '' }}">
+                    <label for="PostName">Name :</label>
+                    <input name="data[Post][name]" class="form-control" maxlength="255" type="text"
+                           value="{{ old('data.Post.name', post.name) }}" id="PostName" required="required">
+                    {% if validationErrors.has('data.Post.name') %}
+                        <div class="help-block">{{ validationErrors.first('data.Post.name') }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group required {{ validationErrors.has('data.Post.slug') ? 'has-error': '' }}">
+                    <label for="PostSlug">Slug :</label>
+                    <input name="data[Post][slug]" class="form-control" maxlength="255" type="text"
+                           value="{{ old('data.Post.slug', post.slug) }}" id="PostSlug">
+                    {% if validationErrors.has('data.Post.slug') %}
+                        <div class="help-block">{{ validationErrors.first('data.Post.slug') }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group {{ validationErrors.has('data.Post.category_id') ? 'has-error': '' }}">
+                    <label for="PostCategoryId">Category :</label>
+                    <select name="data[Post][category_id]" class="form-control" id="PostCategoryId">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {{ old('data.Post.category_id', post.category.id) == category.id ? 'selected' }}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if validationErrors.has('data.Post.category_id') %}
+                        <div class="help-block">{{ validationErrors.first('data.Post.category_id') }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group {{ validationErrors.has('data.Post.user_id') ? 'has-error': '' }}">
+                    <label for="PostUserId">Author :</label>
+                    <select name="data[Post][user_id]" class="form-control" id="PostUserId">
+                        {% for user in users %}
+                            <option value="{{ user.id }}" {{ old('data.Post.user_id', post.user.id) == user.id ? 'selected' }}>{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if validationErrors.has('data.Post.user_id') %}
+                        <div class="help-block">{{ validationErrors.first('data.Post.user_id') }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="form-group required {{ validationErrors.has('data.Post.content') ? 'has-error': '' }}">
+            <label for="PostContent">Content :</label>
+            {% if validationErrors.has('data.Post.content') %}
+                <div class="help-block">{{ validationErrors.first('data.Post.content') }}</div>
+            {% endif %}
+            <textarea name="data[Post][content]" class="form-control" cols="30" rows="6" id="PostContent"
+                      required="required">{{ old('data.Post.content', post.content) }}</textarea>
+
+        </div>
+        <div class="submit">
+            <input class="btn btn-primary" type="submit" value="Edit">
+        </div>
+    </form>
+
+{% endblock %}
