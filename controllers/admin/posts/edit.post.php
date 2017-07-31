@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Kocal\Validator\Validator;
 use Siler\Container;
 use function Siler\Http\redirect;
@@ -33,9 +34,15 @@ if ($validator->fails()) {
     setsession('validationErrors', $validator->errors());
     redirect(header('Referer', '/admin'));
 } else {
+    $slug = array_get($_POST, 'data.Post.slug');
+
+    if (empty($slug)) {
+        $slug = Str::slug($_POST['data']['Post']['name']);
+    }
+
     $post->fill([
         'name' => $_POST['data']['Post']['name'],
-        'slug' => $_POST['data']['Post']['slug'],
+        'slug' => $slug,
         'user_id' => $_POST['data']['Post']['user_id'],
         'category_id' => $_POST['data']['Post']['category_id'],
         'content' => $_POST['data']['Post']['content'],
