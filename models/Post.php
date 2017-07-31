@@ -30,10 +30,12 @@ class Post extends Model
 
         self::creating(function (Post $post) {
             $post->{self::CREATED_AT} = new Carbon();
+            $post->category()->increment('post_count');
         });
 
         self::deleting(function (Post $post) {
             $post->comments()->delete();
+            $post->category()->decrement('post_count');
         });
     }
 
