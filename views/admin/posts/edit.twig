@@ -24,7 +24,7 @@
                 <div class="form-group required {{ validationErrors.has('data.Post.slug') ? 'has-error': '' }}">
                     <label for="PostSlug">Slug :</label>
                     <input name="data[Post][slug]" class="form-control" maxlength="255" type="text"
-                           value="{{ old('data.Post.slug', post.slug) }}" id="PostSlug" required="required">
+                           value="{{ old('data.Post.slug', post.slug) }}" id="PostSlug">
                     {% if validationErrors.has('data.Post.slug') %}
                         <div class="help-block">{{ validationErrors.first('data.Post.slug') }}</div>
                     {% endif %}

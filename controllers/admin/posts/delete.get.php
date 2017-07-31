@@ -4,7 +4,7 @@ use Siler\Http;
 use function Siler\Http\Request\get;
 use function Siler\Http\Request\header;
 
-$referer = header('HTTP_REFERER', '/admin');
+$referer = header('Referer', '/admin');
 
 if (get('_csrf') === Container\get('csrf-token')) {
     $postId = array_get($params, 'id');
