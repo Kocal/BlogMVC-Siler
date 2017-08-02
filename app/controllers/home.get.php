@@ -1,7 +1,7 @@
 <?php
-use Illuminate\Pagination\Paginator;
+
+use App\Models\Post;
 use Kilte\Pagination\Pagination;
-use Models\Post;
 use Siler\Http\Response;
 use Siler\Twig;
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Kocal\Validator\Validator;
 use Siler\Container;
 use function Siler\Http\redirect;
@@ -10,10 +11,8 @@ $referer = header('Referer', '/');
 
 $validator = new Validator([
     '_csrf' => 'required|in:' . Container\get('csrf-token'),
-    'post_id' => 'required|integer|min:1',
-    'email' => 'required|email',
     'username' => 'required',
-    'content' => 'required',
+    'password' => 'required',
 ], 'en');
 
 $validator->validate($_POST);
@@ -22,16 +21,19 @@ if ($validator->fails()) {
     setsession('requestData', $_POST);
     setsession('validationErrors', $validator->errors());
 } else {
-    \Models\Comment::create([
-        'post_id' => $_POST['post_id'],
-        'email' => $_POST['email'],
-        'username' => $_POST['username'],
-        'content' => $_POST['content'],
-    ]);
-    setsession('requestData', null);
-    setsession('successAlert', 'Your comment has been successfully posted.');
+    $user = User::where('username', $_POST['username'])->first();
+
+    if (!password_verify($_POST['password'], $user->password)) {
+        setsession('requestData', $_POST);
+        setsession('errorAlert', 'Unknown credentials.');
+    } else {
+        setsession('user', $user);
+        setsession('requestData', null);
+        setsession('successAlert', 'You are now successfully logged.');
+        redirect('/admin');
+        die();
+    }
 }
 
 redirect($referer);
-
 die();

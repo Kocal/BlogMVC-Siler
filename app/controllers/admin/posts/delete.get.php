@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Post;
 use Siler\Container;
 use Siler\Http;
 use function Siler\Http\Request\get;
@@ -8,7 +10,7 @@ $referer = header('Referer', '/admin');
 
 if (get('_csrf') === Container\get('csrf-token')) {
     $postId = array_get($params, 'id');
-    $post = \Models\Post::find($postId);
+    $post = Post::find($postId);
 
     if($post && $post->delete()) {
         Http\setsession('successAlert', 'The post has been successfully deleted.');

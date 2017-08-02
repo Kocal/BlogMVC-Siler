@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Post;
+use App\Models\User;
 use Kilte\Pagination\Pagination;
 use Siler\Http\Response;
 use Siler\Twig;
@@ -8,7 +11,7 @@ use function Siler\Http\setsession;
 $id = (int)array_get($params, 'id');
 
 // Fetching user
-$user = \Models\User::where('id', $id)->first();
+$user = User::where('id', $id)->first();
 
 if ($user === null) {
     setsession('errorAlert', 'This author does not exists.');
@@ -18,7 +21,7 @@ if ($user === null) {
 }
 
 // Fetching its posts
-$posts = \Models\Post::where('user_id', $user->id)->orderBy('created', 'DESC')->paginate(5);
+$posts = Post::where('user_id', $user->id)->orderBy('created', 'DESC')->paginate(5);
 
 // Creating pagination
 $pagination = new Pagination($posts->total(), $posts->currentPage(), $posts->perPage());

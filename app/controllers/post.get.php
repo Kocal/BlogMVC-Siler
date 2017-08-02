@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Post;
 use Siler\Container;
 use Siler\Http\Response;
 use Siler\Twig;
@@ -9,7 +11,7 @@ $db = Container\get('db');
 $slug = array_get($params, 'slug');
 
 // Fetching post
-$post = \Models\Post::where('slug', $slug)->with('comments')->first();
+$post = Post::where('slug', $slug)->with('comments')->first();
 
 if ($post === null) {
     setsession('errorAlert', 'This post does not exists.');
