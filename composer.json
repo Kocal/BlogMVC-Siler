@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Models\\": "models"
+            "App\\Models\\": "app/models"
         }
     },
     "require": {

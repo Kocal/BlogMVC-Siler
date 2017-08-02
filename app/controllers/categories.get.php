@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Kilte\Pagination\Pagination;
 use Siler\Http\Response;
 use Siler\Twig;
@@ -9,7 +10,7 @@ use function Siler\Http\setsession;
 $slug = array_get($params, 'slug');
 
 // Fetching category
-$category = \Models\Category::where('slug', $slug)->first();
+$category = Category::where('slug', $slug)->first();
 
 if ($category === null) {
     setsession('errorAlert', 'This category does not exists.');

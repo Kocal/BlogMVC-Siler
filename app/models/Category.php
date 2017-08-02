@@ -1,12 +1,12 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Category extends Model
 {
-    protected $fillable = ['username', 'password'];
+    protected $fillable = ['name', 'slug', 'post_count'];
 
     public $timestamps = false;
 

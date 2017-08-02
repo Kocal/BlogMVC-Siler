@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Post;
 use Kilte\Pagination\Pagination;
 use Siler\Container;
 use Siler\Twig;
@@ -7,7 +9,7 @@ use function Siler\Http\flash;
 use function Siler\Http\session;
 
 $twig = Twig\init(
-    __DIR__ . '/../views',
+    __DIR__ . '/../ressources/views',
     __DIR__ . '/../cache',
     true
 );
@@ -63,5 +65,5 @@ $twig->addGlobal('user', session('user'));
 $twig->addGlobal('errorAlert', flash('errorAlert'));
 $twig->addGlobal('successAlert', flash('successAlert'));
 $twig->addGlobal('validationErrors', flash('validationErrors'));
-$twig->addGlobal('categories', \Models\Category::all());
-$twig->addGlobal('last_posts', \Models\Post::orderBy('created', 'desc')->limit(2)->get());
+$twig->addGlobal('categories', Category::all());
+$twig->addGlobal('last_posts', Post::orderBy('created', 'desc')->limit(2)->get());
