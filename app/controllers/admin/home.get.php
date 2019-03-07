@@ -6,7 +6,7 @@ use Kilte\Pagination\Pagination;
 use Siler\Http\Response;
 use Siler\Twig;
 
-$posts = <Post::orderBy('created', 'DESC')->paginate(20);
+$posts = Post::orderBy('created', 'DESC')->paginate(20);
 $pagination = new Pagination($posts->total(), $posts->currentPage(), $posts->perPage());
 
 Response\html(

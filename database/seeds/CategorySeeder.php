@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-use Models\Category;
+use App\Models\Category;
 use Phinx\Seed\AbstractSeed;
 
 class CategorySeeder extends AbstractSeed

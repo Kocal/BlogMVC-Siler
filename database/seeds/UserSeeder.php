@@ -1,6 +1,6 @@
 <?php
 
-use Models\User;
+use App\Models\User;
 use Phinx\Seed\AbstractSeed;
 
 class UserSeeder extends AbstractSeed
