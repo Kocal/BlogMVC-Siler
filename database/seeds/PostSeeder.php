@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Str;
-use Models\Category;
-use Models\Post;
-use Models\User;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
 use Phinx\Seed\AbstractSeed;
 
 class PostSeeder extends AbstractSeed
